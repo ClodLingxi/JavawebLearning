@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
         <servlet>
-            <servlet-name>Home</servlet-name>
+            <servlet-name>Login</servlet-name>
             <servlet-class>
-                learning.ServletDemo1
+                com.lingxi.backend.Login
             </servlet-class>
         </servlet>
         <servlet-mapping>
-            <servlet-name>Home</servlet-name>
-            <url-pattern>/home</url-pattern>
+            <servlet-name>Login</servlet-name>
+            <url-pattern>/login</url-pattern>
         </servlet-mapping>
 </web-app>
