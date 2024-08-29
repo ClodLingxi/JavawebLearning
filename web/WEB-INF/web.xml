@@ -13,4 +13,19 @@
             <servlet-name>Login</servlet-name>
             <url-pattern>/login</url-pattern>
         </servlet-mapping>
+
+        <servlet>
+            <servlet-name>Register</servlet-name>
+            <servlet-class>
+                com.lingxi.backend.Register
+            </servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>Register</servlet-name>
+            <url-pattern>/register</url-pattern>
+        </servlet-mapping>
+
+        <jsp-config>
+
+        </jsp-config>
 </web-app>
