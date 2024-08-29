@@ -1,6 +1,8 @@
-package com.lingxi.backend;
+package com.lingxi.backend.user;
 
+import com.lingxi.backend.system.Validation;
 import com.lingxi.dataform.User;
+import com.lingxi.dataform.UserData;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +20,7 @@ public class Register extends HttpServlet {
 
         if(Validation.connectDatabase()){
             System.out.println("Valida success");
-            List<User> userList = DataBase.QueryUserData();
+            List<User> userList = UserData.QueryUserData();
             req.setAttribute("userList", userList);
             req.getRequestDispatcher(req.getContextPath() + "/table.jsp").forward(req, resp);
         }

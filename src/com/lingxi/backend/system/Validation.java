@@ -1,6 +1,7 @@
-package com.lingxi.backend;
+package com.lingxi.backend.system;
 
 import com.lingxi.dataform.User;
+import com.lingxi.dataform.UserData;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class Validation {
 
     public static boolean register(){
 
-        List<User> userList = DataBase.QueryUserData();
+        List<User> userList = UserData.QueryUserData();
 
         if(userList == null) return false;
 

@@ -13,13 +13,13 @@
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/web/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/web" relative="/" />
+          <root url="file://$MODULE_DIR$/../untitled3/web" relative="/" />
         </webroots>
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/main/java" />
-          <root url="file://$MODULE_DIR$/src/main/resources" />
-          <root url="file://$MODULE_DIR$/target/generated-sources/annotations" />
-          <root url="file://$MODULE_DIR$/src" />
+          <root url="file://$MODULE_DIR$/../untitled3/src/main/java" />
+          <root url="file://$MODULE_DIR$/../untitled3/src/main/resources" />
+          <root url="file://$MODULE_DIR$/../untitled3/target/generated-sources/annotations" />
+          <root url="file://$MODULE_DIR$/../untitled3/src" />
         </sourceRoots>
       </configuration>
     </facet>
