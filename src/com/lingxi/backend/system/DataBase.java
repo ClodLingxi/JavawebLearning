@@ -9,14 +9,15 @@ public class DataBase {
     protected static Connection connection;
     protected static final QueryRunner queryRunner = new QueryRunner();
 
-    private static final Logger logger = Logger.getLogger("DataBase");
+    public static final Logger logger = Logger.getLogger("DataBase");
     private static Statement statement;
 
     public static String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static String DB_NAME = "learning";
-    private static String DB_URL = "";
-    private static String DB_USER = "";
-    private static String DB_PASSWORD = "";
+    private static String DB_URL =
+            "jdbc:mysql://localhost:3306?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai";
+    private static String DB_USER = "root";
+    private static String DB_PASSWORD = "123456";
 
     public static Boolean init(String url, String name, String password) {
         DB_URL = url;
@@ -25,7 +26,8 @@ public class DataBase {
         return init();
     }
 
-    private static Boolean init() {
+    protected static Boolean init() {
+        if(connection != null) return true;
         try {
             logger.info("Connecting to database...");
 
@@ -38,6 +40,7 @@ public class DataBase {
             statement.execute(sql);
 
         } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
             logger.warning("Database failed to initialize!");
             return false;
         }

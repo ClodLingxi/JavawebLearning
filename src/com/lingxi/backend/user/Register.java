@@ -1,15 +1,11 @@
 package com.lingxi.backend.user;
 
-import com.lingxi.backend.system.Validation;
-import com.lingxi.dataform.User;
-import com.lingxi.dataform.UserData;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 
 public class Register extends HttpServlet {
     @Override
@@ -18,11 +14,5 @@ public class Register extends HttpServlet {
         String password = req.getParameter("password");
         if(username == null || password == null) return;
 
-        if(Validation.connectDatabase()){
-            System.out.println("Valida success");
-            List<User> userList = UserData.QueryUserData();
-            req.setAttribute("userList", userList);
-            req.getRequestDispatcher(req.getContextPath() + "/table.jsp").forward(req, resp);
-        }
     }
 }
