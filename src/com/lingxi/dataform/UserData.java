@@ -9,13 +9,12 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.lingxi.dataform.User.Role;
 
 public class UserData extends DataBase {
 
-    private static List<User> temp;
-
     public static List<User> getUserList(Passport passport) {
-        if (Validate(passport) > 0) {
+        if (ValidateAdmin(passport)) {
             String sql = "select * from admin";
             try {
                 return queryRunner.query(connection, sql, new BeanListHandler<>(User.class));
@@ -40,7 +39,7 @@ public class UserData extends DataBase {
     }
 
     public static User getUser(Passport passport, int id) {
-        if (Validate(passport) > 0) {
+        if (ValidateAdmin(passport)) {
             String sql = "select * from admin where id=?";
             try {
                 return queryRunner.query(connection, sql, new BeanHandler<>(User.class), id);
@@ -53,22 +52,20 @@ public class UserData extends DataBase {
     }
 
     public static Boolean ValidateAdmin(Passport passport) {
-        return true;
+        if (passport == null || passport.getRole() != Role.Admin) return false;
+        int id = Validate(passport);
+        return id > 0 && isEnable(id);
     }
 
-    public static int Validate(Passport passport){
-        if(passport == null) return -1;
-        return Validate(passport.getName(), passport.getPassword());
-    }
-
-    public static int Validate(String name, String password) {
+    public static int Validate(Passport passport) {
         if(!init()) return -1;
 
-        String sql = "select * from admin where name=? and password=?";
+        String sql = "select * from admin where name=? and password=? and role=?";
         try {
-            temp = queryRunner.query(connection, sql, new BeanListHandler<>(User.class), name, password);
-            if (temp == null || temp.isEmpty()) return -1;
-            else return temp.get(0).getId();
+            User user = queryRunner.query(connection, sql, new BeanHandler<>(User.class),
+                    passport.getName(), passport.getPassword(), passport.getRole().ordinal() + 1);
+            if (user == null) return -1;
+            else return user.getId();
         } catch (SQLException e) {
             DataBase.logger.warning("Fail to query user!");
             return -1;
@@ -116,9 +113,9 @@ public class UserData extends DataBase {
 
         String sql = "select * from admin where login=1";
         try {
-            temp = queryRunner.query(connection, sql, new BeanListHandler<>(User.class));
-            if (temp == null || temp.isEmpty()) return null;
-            else return temp;
+            List<User> users = queryRunner.query(connection, sql, new BeanListHandler<>(User.class));
+            if (users == null || users.isEmpty()) return null;
+            else return users;
         } catch (SQLException e) {
             DataBase.logger.warning("Fail to get admin online list!");
             return null;

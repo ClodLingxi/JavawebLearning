@@ -1,6 +1,7 @@
 package com.lingxi.backend.user;
 
 import com.lingxi.dataform.Passport;
+import com.lingxi.dataform.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import com.lingxi.backend.user.Login.LoginStatus;
 
 @WebServlet("/UserServlet")
-public class UserServlet extends HttpServlet {
+public class UserValidation extends HttpServlet {
     final String LOGIN_PATH = "/";
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -35,7 +36,7 @@ public class UserServlet extends HttpServlet {
 //            }
 
             if (username != null && password != null){
-                Passport passport = new Passport(Passport.UserRole.admin, username, password);
+                Passport passport = new Passport(User.Role.Admin, username, password);
                 LoginStatus result = Login.login(passport);
 
                 if (result == LoginStatus.SUCCESS){
