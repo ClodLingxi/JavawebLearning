@@ -1,19 +1,17 @@
 package com.lingxi.backend.manager;
 
-import com.lingxi.dataform.Passport;
 import com.lingxi.dataform.User;
 import com.lingxi.dataform.UserData;
+import com.lingxi.dataform.Passport;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import javax.swing.plaf.nimbus.State;
 
-
-@WebServlet("/UserAddServlet")
-public class UserAddServlet extends HttpServlet {
+@WebServlet("/UserEditServlet")
+public class UserEditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
@@ -21,7 +19,7 @@ public class UserAddServlet extends HttpServlet {
         if(UserData.Validate(passport) > 0){
             User user = UserData.getUser(req);
 
-            if (UserData.Add(user)){
+            if (UserData.Update(user, Integer.parseInt(req.getParameter("id")))){
                 System.out.println("Success");
             } else System.out.println("Fail");
         }

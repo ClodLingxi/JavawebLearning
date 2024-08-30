@@ -59,23 +59,12 @@
                 <td>${user.role.toString()} </td>
                 <td>${user.enabled == true ? "启用" : "禁用"} </td>
                 <td>
-                    <a href="../UserManagerServlet" class="tablelink">修改</a> &nbsp;&nbsp;
+                    <a href="userEdit.jsp?id=${user.id}" class="tablelink">修改</a> &nbsp;&nbsp;
                     <a href="../UserManagerServlet?type=delete&id=${user.id}" class="tablelink">删除</a>
                 </td>
             </tr>
         </jstl:forEach>
 
-        <tr height="50px">
-            <td><input name="" type="checkbox" value=""/></td>
-            <td>QST</td>
-            <td>青软实训</td>
-            <td>qst@test.com</td>
-            <td>系统管理员</td>
-            <td>启用</td>
-            <td><a href="userAdd.jsp" class="tablelink">修改</a> &nbsp;&nbsp;
-                <a href="#" class="tablelink"> 删除</a>
-            </td>
-        </tr>
         </tbody>
     </table>
     <div class="pagin">

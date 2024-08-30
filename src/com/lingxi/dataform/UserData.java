@@ -1,6 +1,7 @@
 package com.lingxi.dataform;
 
 import com.lingxi.backend.system.DataBase;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
@@ -17,6 +18,31 @@ public class UserData extends DataBase {
             String sql = "select * from admin";
             try {
                 return queryRunner.query(connection, sql, new BeanListHandler<>(User.class));
+            } catch (SQLException e) {
+                logger.warning("Fail to query admin!");
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public static User getUser(HttpServletRequest request) {
+        String username = request.getParameter("userLogname");
+        String password = request.getParameter("userPwd");
+        String realName = request.getParameter("userRealname");
+        String email = request.getParameter("userEmail");
+        String role = request.getParameter("userRole");
+        String state = request.getParameter("userState");
+
+        return new User(username, password, realName,
+                User.Role.values()[Integer.parseInt(role)], email, Integer.parseInt(state) > 0);
+    }
+
+    public static User getUser(Passport passport, int id) {
+        if (Validate(passport) > 0) {
+            String sql = "select * from admin where id = ?";
+            try {
+                return queryRunner.query(connection, sql, new BeanListHandler<>(User.class), id).get(0);
             } catch (SQLException e) {
                 logger.warning("Fail to query admin!");
                 return null;
@@ -49,7 +75,7 @@ public class UserData extends DataBase {
     }
 
     public static Boolean Add(User user) {
-        String sql = "insert into admin(name,password,realName,role,email,enable) values(?,?,?,?,?,?)";
+        String sql = "insert into admin(name,password,realName,role,email,enabled) values(?,?,?,?,?,?)";
         try {
             int result = queryRunner.update(connection, sql, user.toArray());
             return result > 0;
@@ -70,14 +96,16 @@ public class UserData extends DataBase {
         }
     }
 
-    public static boolean Update(User user) {
-        String sql = "update admin set name=?,password=?,realname=?,email=? " +
+    public static boolean Update(User user, int id) {
+        String sql = "update admin set name=?,password=?,realname=?,role=?,email=?,enabled=? " +
                 "where id=?";
         try {
-            int result = queryRunner.update(connection, sql, new ScalarHandler<>(), user.toArray(), user.getId());
+            System.out.println(user);
+            int result = queryRunner.update(connection, sql, user.toArray(id));
             return result > 0;
         } catch (SQLException e){
-            DataBase.logger.warning("Fail to get delete user!");
+            e.printStackTrace();
+            DataBase.logger.warning("Fail to update user!");
             return false;
         }
     }

@@ -1,5 +1,7 @@
 package com.lingxi.dataform;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public class User {
     public enum Role{
         Admin,
@@ -10,18 +12,18 @@ public class User {
         @Override
         public String toString() {
             if (this.equals(Admin)) return "系统管理员";
-            else if (this.equals(Company)) return "Company";
-            else if (this.equals(User)) return "用户";
+            else if (this.equals(Company)) return "企业管理员";
+            else if (this.equals(User)) return "普通用户";
             return name();
         }
     }
 
     private int id;
-    private String name;
-    private String password;
-    private String realName;
+    private String name="";
+    private String password="";
+    private String realName="";
     private Role role;
-    private String email;
+    private String email="";
     private Boolean enabled;
     private Boolean login;
 
@@ -60,6 +62,10 @@ public class User {
 
     public Object[] toArray(){
         return new Object[]{name, password, realName, role.ordinal() + 1, email, enabled};
+    }
+
+    public Object[] toArray(Object end){
+        return new Object[]{name, password, realName, role.ordinal() + 1, email, enabled, end};
     }
 
     @Override
