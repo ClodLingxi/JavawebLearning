@@ -7,8 +7,7 @@
     Passport passport = (Passport) session.getAttribute("passport");
     int id = Integer.parseInt(request.getParameter("id"));
     if (passport != null && id >= 0) {
-        request.setAttribute("User", UserData.getUser(passport, id));
-        System.out.println(UserData.getUser(passport, id));
+        request.setAttribute("user", UserData.getUser(passport, id));
     } else {
 
     }
@@ -29,33 +28,33 @@
 </div>
 <div class="formbody">
     <div class="usual">
-        <form name="frm" action="../UserEditServlet?id=${User.id}" method="post">
+        <form name="frm" action="../UserEditServlet?id=${user.id}" method="post">
             <div class="tabson">
                 <ul class="forminfo">
                     <li>
                         <label>登录名称<b>*</b></label>
                         <input name="userLogname" type="text" class="dfinput" style="width:518px;"
-                               value="${User.name}"/>
+                               value="${user.name}"/>
                     </li>
                     <li>
                         <label>登录密码<b>*</b></label>
                         <input name="userPwd" type="password" class="dfinput" style="width:518px;"
-                               value="${User.password}"/>
+                               value="${user.password}"/>
                     </li>
                     <li>
                         <label>真实姓名<b>*</b></label>
                         <input name="userRealname" type="text" class="dfinput" style="width:518px;"
-                               value="${User.realName}"/>
+                               value="${user.realName}"/>
                     </li>
                     <li>
                         <label>邮箱<b>*</b></label>
-                        <input name="userEmail" type="text" class="dfinput" style="width:518px;" value="${User.email}"/>
+                        <input name="userEmail" type="text" class="dfinput" style="width:518px;" value="${user.email}"/>
                     </li>
                     <li>
                         <label>用户角色<b>*</b></label>
                         <div class="vocation">
                             <select name="userRole" class="select3">
-                                <jstl:set var="role" value="${User.role}" />
+                                <jstl:set var="role" value="${user.role}" />
                                 <option value="2" <jstl:if test="${role.ordinal() == 2}">selected</jstl:if>>普通用户</option>
                                 <option value="1" <jstl:if test="${role.ordinal() == 1}">selected</jstl:if>>企业管理员</option>
                                 <option value="0" <jstl:if test="${role.ordinal() == 0}">selected</jstl:if>>系统管理员</option>
@@ -65,7 +64,7 @@
                     <li>
                         <label>用户状态<b>*</b></label>
 
-                        <jstl:set var="enabled" value="${User.enabled}" />
+                        <jstl:set var="enabled" value="${user.enabled}" />
                         <input name="userState" type="radio" value="1" <jstl:if test="${enabled == true}">checked</jstl:if>/>启用
                         <input name="userState" type="radio" value="0" <jstl:if test="${enabled == false}">checked</jstl:if>/>禁用
                     </li>

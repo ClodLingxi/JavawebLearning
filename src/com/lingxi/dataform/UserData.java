@@ -98,11 +98,9 @@ public class UserData extends DataBase {
         String sql = "update admin set name=?,password=?,realname=?,role=?,email=?,enabled=? " +
                 "where id=?";
         try {
-            System.out.println(user);
             int result = queryRunner.update(connection, sql, user.toArray(id));
             return result > 0;
         } catch (SQLException e){
-            e.printStackTrace();
             DataBase.logger.warning("Fail to update user!");
             return false;
         }

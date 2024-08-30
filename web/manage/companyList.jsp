@@ -53,17 +53,18 @@
             <tr height="50px">
                 <td ><input name="" type="checkbox" value="" /></td>
                 <td>${company.name}</td>
-                <td>${company.address}}</td>
+                <td>${company.address}</td>
                 <td>${company.scale}</td>
                 <td>${company.type}</td>
                 <td>${company.state.toString()}</td>
                 <td>${company.order}</td>
                 <td>${company.views}</td>
-                <td ><a href="companyAdd.jsp?id=${company.id}" class="tablelink">修改</a> &nbsp;&nbsp;
+                <td ><a href="companyEdit.jsp?id=${company.id}" class="tablelink">修改</a> &nbsp;&nbsp;
                     <a href="${pageContext.request.contextPath}/CompanyServlet?type=delete&id=${company.id}" class="tablelink"> 删除</a>
                 </td>
             </tr>
         </jstl:forEach>
+
         </tbody>
     </table>
     <div class="pagin">

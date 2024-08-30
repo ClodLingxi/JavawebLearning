@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ page import="com.lingxi.dataform.Passport" %>
+<%@ page import="com.lingxi.dataform.CompanyData" %>
+<%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    Passport passport = (Passport) session.getAttribute("passport");
+    int id = Integer.parseInt(request.getParameter("id"));
+    if (passport != null && id >= 0) {
+        request.setAttribute("company", CompanyData.getCompany(passport, id));
+    } else {
+
+    }
+%>
 
 <!doctype html>
 <html>
@@ -30,10 +42,10 @@
                 document.getElementById("companyType").focus();
                 return false;
             }
-            // if(document.getElementById("companyPic").value == ""){
-            // 	alert("请选择企业宣传图片！");
-            // 	document.getElementById("companyPic").focus();
-            // 	return false;
+            // if (document.getElementById("companyPic").value == "") {
+            //     alert("请选择企业宣传图片！");
+            //     document.getElementById("companyPic").focus();
+            //     return false;
             // }
             return true;
         }
@@ -48,45 +60,54 @@
 </div>
 <div class="formbody">
     <div class="usual">
-        <%--  <form name="frm" action="${pageContext.request.contextPath}/CompanyServlet?type=add" method="post" --%>
-        <%--        enctype="multipart/form-data" onsubmit="return validate();">--%>
-        <form name="frm" action="${pageContext.request.contextPath}/CompanyServlet?type=add" method="post"
-              onsubmit="return validate();">
+        <form name="frm" action="${pageContext.request.contextPath}/CompanyServlet?type=update&id=${company.id}" method="post"
+               onsubmit="return validate();">
+<%--        <form name="frm" action="${pageContext.request.contextPath}/CompanyServlet?type=update&id=${company.id}" method="post"--%>
+<%--              enctype="multipart/form-data" onsubmit="return validate();">--%>
             <div class="tabson">
                 <ul class="forminfo">
                     <li>
                         <label>企业名称<b>*</b></label>
-                        <input name="companyName" type="text" id="companyName" class="dfinput" style="width:518px;"/>
+                        <input name="companyName" type="text" id="companyName" class="dfinput" style="width:518px;"
+                               value="${company.name}"/>
                     </li>
                     <li>
                         <label>企业所在地<b>*</b></label>
-                        <input name="companyArea" type="text" id="companyArea" class="dfinput" style="width:518px;"/>
+                        <input name="companyArea" type="text" id="companyArea" class="dfinput" style="width:518px;"
+                               value="${company.address}"/>
                     </li>
                     <li>
                         <label>企业规模<b>*</b></label>
-                        <input name="companySize" type="text" id="companySize" class="dfinput" style="width:518px;"/>
+                        <input name="companySize" type="text" id="companySize" class="dfinput" style="width:518px;"
+                               value="${company.scale}"/>
                     </li>
                     <li>
                         <label>企业性质<b>*</b></label>
-                        <input name="companyType" type="text" id="companyType" class="dfinput" style="width:518px;"/>
+                        <input name="companyType" type="text" id="companyType" class="dfinput" style="width:518px;"
+                               value="${company.type}"/>
                     </li>
                     <li>
                         <p>企业简介&nbsp;(不超过1000字)</p>
-                        <textarea class="ckeditor" cols="50" id="companyBrief" name="companyBrief" rows="10"></textarea>
+                        <textarea class="ckeditor" cols="50" id="companyBrief" name="companyBrief"
+                                  rows="10">${company.introduction}</textarea>
                     </li>
                     <li>
                         <label>企业招聘状态</label>
                         <div class="vocation">
                             <select name="companyState" class="select3">
-                                <option value="1">招聘中</option>
-                                <option value="2">已暂停</option>
-                                <option value="3">已结束</option>
+                                <jstl:set var="state" value="${company.state}"/>
+                                <option value="0" <jstl:if test="${state.ordinal() == 0}">selected</jstl:if>>招聘中
+                                </option>
+                                <option value="1" <jstl:if test="${state.ordinal() == 1}">selected</jstl:if>>已暂停
+                                </option>
+                                <option value="2" <jstl:if test="${state.ordinal() == 2}">selected</jstl:if>>已结束
+                                </option>
                             </select>
                         </div>
                     </li>
                     <li>
                         <label>显示排序<b></b></label>
-                        <input name="companySort" type="text" class="dfinput" style="width:100px;"/>
+                        <input name="companySort" type="text" class="dfinput" style="width:100px;" value="${company.order}"/>
                     </li>
                     <li>
                         <label>宣传图片<b>*</b></label>

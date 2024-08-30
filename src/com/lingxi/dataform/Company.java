@@ -26,11 +26,22 @@ public class Company {
     private String introduction;
     private State state;
     private int order;
-    private String picture;
-    private Long views;
+    private String picture="";
+    private Long views=0L;
 
     public Company() {}
-    public Company(String name, String address, int scale, String type, String introduction, String picture, int order) {}
+    public Company(String name, String address, String scale, String type, String introduction, State state,
+                   String picture, int order) {
+        this.name = name;
+        this.address = address;
+        this.scale = scale;
+        this.type = type;
+        this.introduction = introduction;
+        this.state = state;
+        this.picture = picture;
+        this.order = order;
+
+    }
 
     public int getId() { return id; }
     public String getName() { return name; }
@@ -59,10 +70,15 @@ public class Company {
     @Override
     public String toString() {
         return "Company [id=" + id + ", name=" + name + ", address=" + address + ", scale=" + scale + ", type=" +
-                type + ", introduction=" + introduction + ", state=" + state + ", order=" + order + "]";
+                type + ", introduction=" + introduction + ", state=" + state + ", picture=" + picture + ", order=" + order +
+                 ", views=" + views + "]";
     }
 
     public Object[] toArray() {
-        return new Object[]{name, address, scale, type, introduction, state, order, picture};
+        return new Object[]{name, address, scale, type, introduction, state.name(), order, picture};
+    }
+
+    public Object[] toArray(Object end) {
+        return new Object[]{name, address, scale, type, introduction, state.name(), order, picture, end};
     }
 }
