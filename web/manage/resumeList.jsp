@@ -54,7 +54,8 @@
                 <td>${resume.email}</td>
                 <td>${resume.experience}</td>
                 <td>${resume.target}</td>
-                <td><a href="resumeView.jsp?id=${resume.id}" class="tablelink">查看</a> &nbsp;&nbsp;<a href="#" class="tablelink"> 删除</a>
+                <td><a href="resumeView.jsp?id=${resume.id}" class="tablelink">查看</a> &nbsp;&nbsp;
+                    <a href="${pageContext.request.contextPath}/ResumeServlet?type=delete&id=${resume.id}" class="tablelink"> 删除</a>
                 </td>
             </tr>
         </jstl:forEach>

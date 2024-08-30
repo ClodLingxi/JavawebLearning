@@ -46,4 +46,19 @@ public class ResumeData extends DataBase {
         }
     }
 
+    public static int Delete(int[] id) {
+        String sql = "delete from learning.resume where id=?";
+        int result = 0;
+        try {
+            Object[][] params = new Object[id.length][1];
+            for(int i = 0; i < id.length; i++) params[i][0] = id[i];
+            int[] results = queryRunner.batch(connection, sql, params);
+
+            for (int i : results) result += i;
+        } catch (SQLException e) {
+            DataBase.logger.warning("Fail to add user!");
+        }
+        return result;
+    }
+
 }
