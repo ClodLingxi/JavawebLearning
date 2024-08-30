@@ -12,17 +12,21 @@ public class UserData extends DataBase {
 
     private static List<User> temp;
 
-    public static List<User> getAdminList(Passport passport) {
+    public static List<User> getUserList(Passport passport) {
         if (Validate(passport) > 0) {
             String sql = "select * from admin";
             try {
                 return queryRunner.query(connection, sql, new BeanListHandler<>(User.class));
             } catch (SQLException e) {
-                DataBase.logger.warning("Fail to query admin!");
+                logger.warning("Fail to query admin!");
                 return null;
             }
         }
         return null;
+    }
+
+    public static Boolean ValidateAdmin(Passport passport) {
+        return true;
     }
 
     public static int Validate(Passport passport){
@@ -39,17 +43,18 @@ public class UserData extends DataBase {
             if (temp == null || temp.isEmpty()) return -1;
             else return temp.get(0).getId();
         } catch (SQLException e) {
-            DataBase.logger.warning("Fail to query admin!");
+            DataBase.logger.warning("Fail to query user!");
             return -1;
         }
     }
 
-    public static boolean Add(User user) {
-        String sql = "insert into admin values(?,?,?,?,?,?)";
+    public static Boolean Add(User user) {
+        String sql = "insert into admin(name,password,realName,role,email,enable) values(?,?,?,?,?,?)";
         try {
-            return queryRunner.insert(connection, sql, new ScalarHandler<>(), user.toArray());
+            int result = queryRunner.update(connection, sql, user.toArray());
+            return result > 0;
         } catch (SQLException e) {
-            DataBase.logger.warning("Fail to get add admin!");
+            DataBase.logger.warning("Fail to add user!");
             return false;
         }
     }
@@ -72,7 +77,7 @@ public class UserData extends DataBase {
             int result = queryRunner.update(connection, sql, new ScalarHandler<>(), user.toArray(), user.getId());
             return result > 0;
         } catch (SQLException e){
-            DataBase.logger.warning("Fail to get delete admin!");
+            DataBase.logger.warning("Fail to get delete user!");
             return false;
         }
     }

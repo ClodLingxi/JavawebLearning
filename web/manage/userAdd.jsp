@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+
 <!doctype html>
 <html>
 <head>
@@ -37,9 +40,9 @@
           <label>用户角色<b>*</b></label>
           <div class="vocation">
             <select name="userRole" class="select3">
-              <option value="3">普通用户</option>
-              <option value="2">企业管理员</option>
-              <option value="1">系统管理员</option>
+              <option value="2">普通用户</option>
+              <option value="1">企业管理员</option>
+              <option value="0">系统管理员</option>
             </select>
           </div>
         </li>

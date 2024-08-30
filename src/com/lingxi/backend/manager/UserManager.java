@@ -18,12 +18,26 @@ public class UserManager extends HttpServlet {
         Passport passport = (Passport) session.getAttribute("passport");
         if(UserData.Validate(passport) > 0){
             String type = req.getParameter("type");
+            User user;
             switch (type){
                 case "add":
-                    User user = (User) session.getAttribute("admin");
+                    user = (User) session.getAttribute("userdata");
                     if(user != null){
-
+                        if (UserData.Add(user)) System.out.println("Success");
                     }
+                    System.out.println("Err");
+                    break;
+                case "update":
+                    user = (User) session.getAttribute("userdata");
+                    if(user != null){
+                        if (UserData.Update(user)) System.out.println("Success");
+                    }
+                    System.out.println("Err");
+                    break;
+                case "delete":
+                    int id = Integer.parseInt(req.getParameter("userid"));
+                    if(UserData.Delete(id)) System.out.println("Success");
+                    System.out.println("Err");
             }
         }
     }

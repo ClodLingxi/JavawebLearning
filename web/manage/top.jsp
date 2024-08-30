@@ -19,15 +19,7 @@
             <li><span><img src="../images/help.png" title="帮助" class="helpimg"/></span><a href="#">帮助</a></li>
             <li><a href="#">关于</a></li>
             <li>
-                <a href="#" id="exit">退出</a>
-                <script>
-                    $(document).ready(function () {
-                        $("#exit").click(function (e) {
-                            e.preventDefault();
-                            $.post("../UserServlet", {"type": "exit"});
-                        });
-                    });
-                </script>
+                <a href="../UserServlet?type=exit" id="exit">退出</a>
             </li>
         </ul>
         <div class="user"><span>${sessionScope.passport.getName()}</span></div>

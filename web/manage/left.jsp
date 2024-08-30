@@ -42,7 +42,7 @@ $(function(){
   <dd>
     <div class="title"> <span><img src="../images/leftico02.png" /></span>简历管理</div>
     <ul class="menuson">
-      <li><cite></cite><a href="resumeList.html" target="rightFrame">简历查询</a><i></i></li>
+      <li><cite></cite><a href="resumeList.jsp" target="rightFrame">简历查询</a><i></i></li>
     </ul>
   </dd>
   <dd>

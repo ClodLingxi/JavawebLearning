@@ -16,7 +16,7 @@ import com.lingxi.backend.user.Login.LoginStatus;
 public class UserServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         final String LOGIN_PATH = "/login.jsp";
         final String TARGET_PATH = "/manage/main.jsp";
 
@@ -45,24 +45,24 @@ public class UserServlet extends HttpServlet {
 
             }
         }
-        else if (TYPE.equals("exit")){
-            System.out.println("test");
-            HttpSession session = req.getSession();
-            Passport passport = (Passport) req.getAttribute("passport");
-            if (passport != null){
-                UserData.Exit(passport);
-                session.invalidate();
-            }
-            resp.sendRedirect(LOGIN_PATH);
-        }
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String LOGIN_PATH = "/login.jsp";
+        final String TARGET_PATH = "/manage/main.jsp";
 
         String TYPE = req.getParameter("type");
 
-
+        if (TYPE.equals("exit")){
+            HttpSession session = req.getSession();
+//            Passport passport = (Passport) req.getAttribute("passport");
+//            if (passport != null){
+//                UserData.Exit(passport);
+//                session.invalidate();
+//            }
+            session.invalidate();
+            resp.sendRedirect("/");
+        }
     }
 }
