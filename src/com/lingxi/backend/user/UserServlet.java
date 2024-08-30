@@ -14,10 +14,9 @@ import com.lingxi.backend.user.Login.LoginStatus;
 
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
-
+    final String LOGIN_PATH = "/";
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        final String LOGIN_PATH = "/login.jsp";
         final String TARGET_PATH = "/manage/main.jsp";
 
         String TYPE = req.getParameter("type");
@@ -25,10 +24,20 @@ public class UserServlet extends HttpServlet {
         if (TYPE.equals("login")) {
             String username = req.getParameter("userLogname");
             String password = req.getParameter("userPwd");
+            String verifyCode = req.getParameter("verifyCode");
+
+            String verifyCodeValue = (String)req.getSession().getAttribute("verifyCodeValue");
+
+            HttpSession session = req.getSession();
+            if(!verifyCodeValue.equalsIgnoreCase(verifyCode)){
+                session.setAttribute("msg", "验证码错误");
+                resp.sendRedirect(LOGIN_PATH);
+                return;
+            }
 
             if (username != null && password != null){
                 LoginStatus result = Login.login(username, password);
-                HttpSession session = req.getSession();
+
                 if (result == LoginStatus.SUCCESS){
                     session.setAttribute("passport",
                             new Passport(Passport.UserRole.admin, username, password));
@@ -49,7 +58,7 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String LOGIN_PATH = "/login.jsp";
+
         final String TARGET_PATH = "/manage/main.jsp";
 
         String TYPE = req.getParameter("type");

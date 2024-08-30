@@ -8,6 +8,7 @@ public class Login {
         SUCCESS,
         FAIL,
         OCCUPIED,
+        VERIFY_FAIL,
     }
 
     public static LoginStatus login(String username, String password) {

@@ -87,31 +87,21 @@
                 document.getElementById("userPwd").focus();
                 return false;
             }
-            if (document.getElementById("ValidateCode").value == "") {
+            if (document.getElementById("verifyCode").value == "") {
                 alert("验证码不能为空不能为空！");
-                document.getElementById("ValidateCode").focus();
+                document.getElementById("verifyCode").focus();
                 return false;
             }
 
             return true;
         }
     </script>
+    <script type="text/javascript" src="./js/jquery-2.1.3.min.js"></script>
     <script type="text/javascript">
-        function check() {
-            layer.open({
-                type: 2,
-                title: '点击验证',
-                maxmin: true,
-                shadeClose: false,
-                area: ['32%', '42%'],
-                content: 'code.jsp',
-                success: function (layero, index) {
-                    var iframe = window['layui-layer-iframe' + index];
-                }
-            });
+        function changeCode() {
+            console.log("Get Code Image..");
+            $("#verifyCode-img").attr("src","CodeServlet?time="+new Date().getTime());
         }
-
-
     </script>
 </head>
 <body>
@@ -128,10 +118,12 @@
                 密&nbsp;&nbsp;&nbsp;&nbsp;码：<input name="userPwd" id="userPwd"
                                                     type="password" class="login_input"/>
             </div>
-            <div align='center'>
-                <a href="#" onClick="check()">
-                    点击验证</a>
+            <div>
+                验证码：<input type="text" id="verifyCode" name="verifyCode">
+                <img src="CodeServlet" onclick="changeCode()" id="verifyCode-img">
+                <a href="javascript:changeCode()">看不清,换一张</a>
             </div>
+
             <div>
                 <div align="center">
                     <input type="submit" class="login_button" value="登&nbsp;&nbsp;录"></input>
