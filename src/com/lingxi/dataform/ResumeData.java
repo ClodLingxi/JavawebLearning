@@ -9,7 +9,7 @@ import java.util.List;
 public class ResumeData extends DataBase {
 
     public static List<Resume> getResumeList(Passport passport){
-        if(UserData.Validate(passport) > 0){
+        if(UserData.ValidateAdmin(passport)){
             String sql = "select * from resume";
             try {
                 return queryRunner.query(connection, sql, new BeanListHandler<>(Resume.class));
