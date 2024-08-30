@@ -3,26 +3,49 @@ package com.lingxi.dataform;
 public class User {
     private int id;
     private String name;
-    private int age;
+    private String password;
+    private String realName;
+    private String email;
+    private Boolean enabled;
+    private Boolean login;
 
     public User() {}
-
-    public User(int id, String name, int age){
+    public User(int id, String name, String password, String realName, String email){
+        new User(id, name, password, realName,email, true, false);
+    }
+    public User(int id, String name, String password, String realName, String email, Boolean enabled, Boolean login) {
         this.id = id;
         this.name = name;
-        this.age = age;
+        this.password = password;
+        this.realName = realName;
+        this.email = email;
+        this.enabled = enabled;
+        this.login = login;
     }
 
     public int getId(){ return id; }
     public String getName(){ return name; }
-    public int getAge(){ return age; }
+    public String getPassword(){ return password; }
+    public String getRealName(){ return realName; }
+    public String getEmail(){ return email; }
+    public Boolean getEnabled(){ return enabled; }
+    public Boolean getLogin(){ return login; }
 
     public void setId(int id){ this.id = id; }
     public void setName(String name){ this.name = name; }
-    public void setAge(int age){ this.age = age; }
+    public void setString(String password){ this.password = password; }
+    public void setRealName(String realName){ this.realName = realName; }
+    public void setEmail(String email){ this.email = email; }
+    public void setEnabled(Boolean enabled){ this.enabled = enabled; }
+    public void setLogin(Boolean login){ this.login = login; }
+
+    public Object[] toArray(){
+        return new Object[]{name, password, realName, email};
+    }
 
     @Override
     public String toString() {
-        return "Student [id=" + id + ", name=" + name + ", age=" + age + "]";
+        return "User [id=" + id + ", name=" + name + ", password=" + password + ", realName="
+                + realName + ", email=" + email + ", enabled=" + enabled + ", login=" + login + "]";
     }
 }

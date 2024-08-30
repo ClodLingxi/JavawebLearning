@@ -1,6 +1,6 @@
 package com.lingxi.backend.user;
 
-import com.lingxi.dataform.AdminData;
+import com.lingxi.dataform.UserData;
 import com.lingxi.dataform.Passport;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -50,7 +50,7 @@ public class UserServlet extends HttpServlet {
             HttpSession session = req.getSession();
             Passport passport = (Passport) req.getAttribute("passport");
             if (passport != null){
-                AdminData.Exit(passport);
+                UserData.Exit(passport);
                 session.invalidate();
             }
             resp.sendRedirect(LOGIN_PATH);

@@ -1,7 +1,7 @@
 package com.lingxi.backend;
 
 import com.lingxi.backend.system.DataBase;
-import com.lingxi.dataform.AdminData;
+import com.lingxi.dataform.UserData;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -19,7 +19,7 @@ public class index implements ServletContextListener {
         DataBase.logger.info("Initialize Server");
 
         DataBase.init(DB_URL, DB_NAME, DB_PASSWORD);
-        AdminData.CleanLogin();
+        UserData.CleanLogin();
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

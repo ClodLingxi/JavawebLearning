@@ -1,6 +1,6 @@
 package com.lingxi.backend.user;
 
-import com.lingxi.dataform.AdminData;
+import com.lingxi.dataform.UserData;
 
 public class Login {
 
@@ -11,9 +11,9 @@ public class Login {
     }
 
     public static LoginStatus login(String username, String password) {
-        int id = AdminData.Validate(username, password);
+        int id = UserData.Validate(username, password);
         if(id == -1) return LoginStatus.FAIL;
-        if(AdminData.isOnline(id) || !AdminData.Login(id)) return LoginStatus.OCCUPIED;
+        if(UserData.isOnline(id) || !UserData.Login(id)) return LoginStatus.OCCUPIED;
         return LoginStatus.SUCCESS;
     }
 }

@@ -48,7 +48,7 @@ $(function(){
   <dd>
     <div class="title"><span><img src="../images/leftico03.png"/></span>用户管理</div>
   	<ul class="menuson">
-      <li><cite></cite><a href="userList.html" target="rightFrame">用户管理</a><i></i></li>
+      <li><cite></cite><a href="userList.jsp" target="rightFrame">用户管理</a><i></i></li>
     </ul>
   </dd>
   <dd>
