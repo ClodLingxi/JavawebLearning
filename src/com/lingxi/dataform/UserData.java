@@ -2,6 +2,7 @@ package com.lingxi.dataform;
 
 import com.lingxi.backend.system.DataBase;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
@@ -40,9 +41,9 @@ public class UserData extends DataBase {
 
     public static User getUser(Passport passport, int id) {
         if (Validate(passport) > 0) {
-            String sql = "select * from admin where id = ?";
+            String sql = "select * from admin where id=?";
             try {
-                return queryRunner.query(connection, sql, new BeanListHandler<>(User.class), id).get(0);
+                return queryRunner.query(connection, sql, new BeanHandler<>(User.class), id);
             } catch (SQLException e) {
                 logger.warning("Fail to query admin!");
                 return null;
@@ -130,6 +131,16 @@ public class UserData extends DataBase {
             return queryRunner.query(connection, sql, new ScalarHandler<>(), id);
         } catch (SQLException e) {
             DataBase.logger.warning("Fail to load online admin!");
+            return false;
+        }
+    }
+
+    public static boolean isEnable(int id) {
+        String sql = "select enabled from admin where id=?";
+        try {
+            return queryRunner.query(connection, sql, new ScalarHandler<>(), id);
+        } catch (SQLException e) {
+            DataBase.logger.warning("Fail to query enabled admin!");
             return false;
         }
     }

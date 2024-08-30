@@ -19,11 +19,11 @@ public class User {
     }
 
     private int id;
-    private String name="";
-    private String password="";
-    private String realName="";
+    private String name;
+    private String password;
+    private String realName;
     private Role role;
-    private String email="";
+    private String email;
     private Boolean enabled;
     private Boolean login;
 
@@ -53,7 +53,7 @@ public class User {
 
     public void setId(int id){ this.id = id; }
     public void setName(String name){ this.name = name; }
-    public void setString(String password){ this.password = password; }
+    public void setPassword(String password){ this.password = password; }
     public void setRealName(String realName){ this.realName = realName; }
     public void setRole(Role role){ this.role = role; }
     public void setEmail(String email){ this.email = email; }

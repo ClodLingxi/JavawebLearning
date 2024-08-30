@@ -1,6 +1,5 @@
 package com.lingxi.backend.user;
 
-import com.lingxi.dataform.UserData;
 import com.lingxi.dataform.Passport;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,29 +28,28 @@ public class UserServlet extends HttpServlet {
             String verifyCodeValue = (String)req.getSession().getAttribute("verifyCodeValue");
 
             HttpSession session = req.getSession();
-            if(!verifyCodeValue.equalsIgnoreCase(verifyCode)){
-                session.setAttribute("msg", "验证码错误");
-                resp.sendRedirect(LOGIN_PATH);
-                return;
-            }
+//            if(!verifyCodeValue.equalsIgnoreCase(verifyCode)){
+//                session.setAttribute("msg", "验证码错误");
+//                resp.sendRedirect(LOGIN_PATH);
+//                return;
+//            }
 
             if (username != null && password != null){
-                LoginStatus result = Login.login(username, password);
+                Passport passport = new Passport(Passport.UserRole.admin, username, password);
+                LoginStatus result = Login.login(passport);
 
                 if (result == LoginStatus.SUCCESS){
-                    session.setAttribute("passport",
-                            new Passport(Passport.UserRole.admin, username, password));
+                    session.setAttribute("passport", passport);
                     resp.sendRedirect(TARGET_PATH);
                 }
                 else if (result == LoginStatus.FAIL) {
                     session.setAttribute("msg", "登录失败");
                     resp.sendRedirect(LOGIN_PATH);
                 }
-                else if (result == LoginStatus.OCCUPIED){
-                    session.setAttribute("msg", "账户被占用");
+                else if (result == LoginStatus.DISABLE){
+                    session.setAttribute("msg", "账户被禁用");
                     resp.sendRedirect(LOGIN_PATH);
                 }
-
             }
         }
     }

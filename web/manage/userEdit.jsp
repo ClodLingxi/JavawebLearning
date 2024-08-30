@@ -8,6 +8,7 @@
     int id = Integer.parseInt(request.getParameter("id"));
     if (passport != null && id >= 0) {
         request.setAttribute("User", UserData.getUser(passport, id));
+        System.out.println(UserData.getUser(passport, id));
     } else {
 
     }
@@ -38,7 +39,7 @@
                     </li>
                     <li>
                         <label>登录密码<b>*</b></label>
-                        <input name="userPwd" type="text" class="dfinput" style="width:518px;"
+                        <input name="userPwd" type="password" class="dfinput" style="width:518px;"
                                value="${User.password}"/>
                     </li>
                     <li>

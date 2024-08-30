@@ -87,11 +87,11 @@
                 document.getElementById("userPwd").focus();
                 return false;
             }
-            if (document.getElementById("verifyCode").value == "") {
-                alert("验证码不能为空不能为空！");
-                document.getElementById("verifyCode").focus();
-                return false;
-            }
+            // if (document.getElementById("verifyCode").value == "") {
+            //     alert("验证码不能为空不能为空！");
+            //     document.getElementById("verifyCode").focus();
+            //     return false;
+            // }
 
             return true;
         }
@@ -100,7 +100,7 @@
     <script type="text/javascript">
         function changeCode() {
             console.log("Get Code Image..");
-            $("#verifyCode-img").attr("src","CodeServlet?time="+new Date().getTime());
+            $("#verifyCode-img").attr("src", "CodeServlet?time=" + new Date().getTime());
         }
     </script>
 </head>
@@ -131,6 +131,7 @@
                 <div align="center">
                     <font style="color: red;">${sessionScope.msg}</font>
                 </div>
+            </div>
         </form>
     </div>
 </div>
